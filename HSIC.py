@@ -41,7 +41,7 @@ def rbf_dot(pattern1, pattern2, deg):
 	return H
 
 
-def hsic_gam(X, Y, alph):
+def hsic_gam(X, Y, alph = 0.5):
 	"""
 	X, Y are numpy vectors with row - sample, col - dim
 	alph is the significance level
