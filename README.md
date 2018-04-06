@@ -26,11 +26,6 @@ Apply HSIC on your data
 ```
 testStat, thresh = hsic_gam(x, y, alph = 0.05)
 ```
-**If testStat < thresh, x and y are independent**;
-
-**If testStat > thresh, x and y are not independent**.
-
-### Notes
 
 Input of function **hsic_gam()**
 
@@ -47,6 +42,9 @@ Output:Output of function **hsic_gam()**
 |testStat  |test threshold for level alpha test|
 |thresh| test statistic|
 
+### Test result
+- **If testStat < thresh, x and y are independent**;
+- **If testStat > thresh, x and y are not independent**.
 
 ## Authors
 
