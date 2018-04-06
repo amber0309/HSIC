@@ -27,6 +27,8 @@ Apply HSIC on your data
 testStat, thresh = hsic_gam(x, y, alph = 0.05)
 ```
 
+### Description
+
 Input of function **hsic_gam()**
 
 | Argument  | Description  |
