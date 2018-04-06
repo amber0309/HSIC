@@ -1,6 +1,6 @@
-# Hilbert-Schmidt independence Criterion (HSIC)
+# Hilbert-Schmidt Independence Criterion (HSIC)
 
-Python version of the original MATLAB code of [Hilbert-Schmidt independence Criterion](http://papers.nips.cc/paper/3201-a-kernel-statistical-test-of-independence.pdf) (HSIC).
+Python version of the original MATLAB code of [Hilbert-Schmidt Independence Criterion](http://papers.nips.cc/paper/3201-a-kernel-statistical-test-of-independence.pdf) (HSIC).
 
 ## Getting Started
 
@@ -16,18 +16,19 @@ We test the code using **Anaconda 4.3.0 64-bit for python 2.7** on windows. Any 
 
 ### Usage
 
-Import IGCI using
+Import HSIC using
 
 ```
 from HSIC import hsic_gam
 ```
 
-Apply IGCI on your data
+Apply HSIC on your data
 ```
 testStat, thresh = hsic_gam(x, y, alph = 0.05)
 ```
-**If testStat < thresh, x and y are independent;
-If testStat > thresh, x and y are not independent.**
+**If testStat < thresh, x and y are independent**;
+
+**If testStat > thresh, x and y are not independent**.
 
 ### Notes
 
@@ -39,7 +40,7 @@ Input of function **hsic_gam()**
 |y | Data of the second variable. L by dim_y numpy array.|
 |alph | lebel of the test |
 
-Output:Output of function **igci()**
+Output:Output of function **hsic_gam()**
 
 | Argument  | Description  |
 |---|---|
