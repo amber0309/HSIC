@@ -10,7 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 * NumPy
 * SciPy
 
-We test the code using **Anaconda 4.3.0 64-bit for python 2.7** on windows. Any later version should still work perfectly.
+We tested the code using **Anaconda 4.3.0 64-bit for python 2.7** on windows. Any later version should still work perfectly.
 
 ## Apply on your data
 
