@@ -35,7 +35,7 @@ Input of function **hsic_gam()**
 |---|---|
 |x | Data of the first variable. L by dim_x numpy array.|
 |y | Data of the second variable. L by dim_y numpy array.|
-|alph | label of the test |
+|alph | level of the test |
 
 Output of function **hsic_gam()**
 
