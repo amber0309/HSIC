@@ -29,8 +29,8 @@ Input of function `hsic_gam()`
 
 | Argument  | Description  |
 |---|---|
-|x | Data of the first variable. `(L, dim_x)` numpy array.|
-|y | Data of the second variable. `(L, dim_y)` numpy array.|
+|x | Data of the first variable. `(n, dim_x)` numpy array.|
+|y | Data of the second variable. `(n, dim_y)` numpy array.|
 |alph | level of the test |
 
 Output of function `hsic_gam()`
