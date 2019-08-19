@@ -2,15 +2,11 @@
 
 Python version of the original MATLAB code of [Hilbert-Schmidt Independence Criterion](http://papers.nips.cc/paper/3201-a-kernel-statistical-test-of-independence.pdf) (HSIC).
 
-## Getting Started
+## Prerequisites
+* numpy
+* scipy
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Prerequisites
-* NumPy
-* SciPy
-
-We tested the code using **Anaconda 4.3.0 64-bit for python 2.7** on windows. Any later version should still work perfectly.
+We tested the code using **Anaconda 4.3.0 64-bit for python 2.7** on windows.
 
 ## Apply on your data
 
@@ -29,15 +25,15 @@ testStat, thresh = hsic_gam(x, y, alph = 0.05)
 
 ### Description
 
-Input of function **hsic_gam()**
+Input of function `hsic_gam()`
 
 | Argument  | Description  |
 |---|---|
-|x | Data of the first variable. L by dim_x numpy array.|
-|y | Data of the second variable. L by dim_y numpy array.|
+|x | Data of the first variable. `(L, dim_x)` numpy array.|
+|y | Data of the second variable. `(L, dim_y)` numpy array.|
 |alph | level of the test |
 
-Output of function **hsic_gam()**
+Output of function `hsic_gam()`
 
 | Argument  | Description  |
 |---|---|
@@ -45,8 +41,8 @@ Output of function **hsic_gam()**
 |thresh| test statistic|
 
 ### Independence test result
-- If **testStat < thresh**, x and y are independent.
-- If **testStat > thresh**, x and y are not independent.
+- If **testStat < thresh**, `x` and `y` are independent.
+- If **testStat > thresh**, `x` and `y` are not independent.
 
 ## Authors
 
