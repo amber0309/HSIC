@@ -11,12 +11,12 @@ Shoubo (shoubo.sub AT gmail.com)
 09/11/2016
 
 Inputs:
-X 			n by dim_x matrix
-Y 			n by dim_y matrix
-alph 			level of test
+X 		n by dim_x matrix
+Y 		n by dim_y matrix
+alph 		level of test
 
 Outputs:
-testStat		test statistics
+testStat	test statistics
 thresh		test threshold for level alpha test
 """
 
