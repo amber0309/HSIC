@@ -106,5 +106,6 @@ def hsic_gam(X, Y, alph = 0.5):
 	bet = varHSIC*n / mHSIC
 
 	thresh = gamma.ppf(1-alph, al, scale=bet)[0][0]
+	p_value = 2*(1-gamma.cdf(testStat, al, scale=bet))[0][0]
 
-	return (testStat, thresh)
+	return (testStat, thresh, p_value)
