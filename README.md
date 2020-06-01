@@ -20,7 +20,7 @@ from HSIC import hsic_gam
 
 Apply HSIC on your data
 ```
-testStat, thresh = hsic_gam(x, y, alph = 0.05)
+testStat, thresh, p_value = hsic_gam(x, y, alph = 0.05)
 ```
 
 ### Description
@@ -31,7 +31,7 @@ Input of function `hsic_gam()`
 |---|---|
 |x | Data of the first variable. `(n, dim_x)` numpy array.|
 |y | Data of the second variable. `(n, dim_y)` numpy array.|
-|alph | level of the test |
+|alph (default=0.05) | level of the test |
 
 Output of function `hsic_gam()`
 
@@ -39,6 +39,7 @@ Output of function `hsic_gam()`
 |---|---|
 |testStat  |test threshold for level alpha test|
 |thresh| test statistic|
+|p_value| p-value of a statistical test with the null hypothesis: x, y are independent
 
 ### Independence test result
 - If **testStat < thresh**, `x` and `y` are independent.
