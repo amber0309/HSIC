@@ -37,8 +37,8 @@ Output of function `hsic_gam()`
 
 | Argument  | Description  |
 |---|---|
-|testStat  |test threshold for level alpha test|
-|thresh| test statistic|
+|testStat  |test statistic|
+|thresh| test threshold for level alpha test|
 
 ### Independence test result
 - If **testStat < thresh**, `x` and `y` are independent.
