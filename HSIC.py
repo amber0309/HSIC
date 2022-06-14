@@ -1,10 +1,10 @@
 """
 python implementation of Hilbert Schmidt Independence Criterion
 hsic_gam implements the HSIC test using a Gamma approximation
-Python 2.7.12
+Python 3.10
 
-Gretton, A., Fukumizu, K., Teo, C. H., Song, L., Scholkopf, B., 
-& Smola, A. J. (2007). A kernel statistical test of independence. 
+Gretton, A., Fukumizu, K., Teo, C. H., Song, L., Scholkopf, B.,
+& Smola, A. J. (2007). A kernel statistical test of independence.
 In Advances in neural information processing systems (pp. 585-592).
 
 Shoubo (shoubo.sub AT gmail.com)
@@ -20,25 +20,35 @@ testStat	test statistics
 thresh		test threshold for level alpha test
 """
 
-from __future__ import division
 import numpy as np
 from scipy.stats import gamma
 
-def rbf_dot(pattern1, pattern2, deg):
-	size1 = pattern1.shape
-	size2 = pattern2.shape
 
-	G = np.sum(pattern1*pattern1, 1).reshape(size1[0],1)
-	H = np.sum(pattern2*pattern2, 1).reshape(size2[0],1)
+def rbf_kernel(vec: np.ndarray):
+    if len(vec.shape) == 1:
+        vec = np.expand_dims(vec, 1)
 
-	Q = np.tile(G, (1, size2[0]))
-	R = np.tile(H.T, (size1[0], 1))
+    size = vec.shape[0]
 
-	H = Q + R - 2* np.dot(pattern1, pattern2.T)
+    # Calculate squares of each element
+    G = np.multiply(vec, vec)
 
-	H = np.exp(-H/2/(deg**2))
+    # Repeat them to get an n x n matrix so that
+    # in each row, repeat that row's value n times
+    Q = np.tile(G, (1, size))
 
-	return H
+    # Calculate the squared distance between elements
+    H = (Q + Q.T) - 2 * np.dot(vec, vec.T)
+
+	# Take the median of nonzero absolute distances as
+	# the kernel width.
+    dists = np.triu(H)
+    dists = dists.reshape(size ** 2, 1)
+    kernel_width = np.sqrt(np.median(dists[dists > 0]) / 2)
+
+    rbf_gamma = 1 / (2 * (kernel_width ** 2))
+    H = np.exp(-H * rbf_gamma)
+    return H
 
 
 def hsic_gam(X, Y, alph = 0.5):
@@ -49,39 +59,10 @@ def hsic_gam(X, Y, alph = 0.5):
 	"""
 	n = X.shape[0]
 
-	# ----- width of X -----
-	Xmed = X
+	K = rbf_kernel(X)
+	L = rbf_kernel(Y)
 
-	G = np.sum(Xmed*Xmed, 1).reshape(n,1)
-	Q = np.tile(G, (1, n) )
-	R = np.tile(G.T, (n, 1) )
-
-	dists = Q + R - 2* np.dot(Xmed, Xmed.T)
-	dists = dists - np.tril(dists)
-	dists = dists.reshape(n**2, 1)
-
-	width_x = np.sqrt( 0.5 * np.median(dists[dists>0]) )
-	# ----- -----
-
-	# ----- width of X -----
-	Ymed = Y
-
-	G = np.sum(Ymed*Ymed, 1).reshape(n,1)
-	Q = np.tile(G, (1, n) )
-	R = np.tile(G.T, (n, 1) )
-
-	dists = Q + R - 2* np.dot(Ymed, Ymed.T)
-	dists = dists - np.tril(dists)
-	dists = dists.reshape(n**2, 1)
-
-	width_y = np.sqrt( 0.5 * np.median(dists[dists>0]) )
-	# ----- -----
-
-	bone = np.ones((n, 1), dtype = float)
 	H = np.identity(n) - np.ones((n,n), dtype = float) / n
-
-	K = rbf_dot(X, X, width_x)
-	L = rbf_dot(Y, Y, width_y)
 
 	Kc = np.dot(np.dot(H, K), H)
 	Lc = np.dot(np.dot(H, L), H)
@@ -89,14 +70,13 @@ def hsic_gam(X, Y, alph = 0.5):
 	testStat = np.sum(Kc.T * Lc) / n
 
 	varHSIC = (Kc * Lc / 6)**2
-
 	varHSIC = ( np.sum(varHSIC) - np.trace(varHSIC) ) / n / (n-1)
-
 	varHSIC = varHSIC * 72 * (n-4) * (n-5) / n / (n-1) / (n-2) / (n-3)
 
 	K = K - np.diag(np.diag(K))
 	L = L - np.diag(np.diag(L))
 
+	bone = np.ones((n, 1), dtype = float)
 	muX = np.dot(np.dot(bone.T, K), bone) / n / (n-1)
 	muY = np.dot(np.dot(bone.T, L), bone) / n / (n-1)
 
@@ -107,4 +87,4 @@ def hsic_gam(X, Y, alph = 0.5):
 
 	thresh = gamma.ppf(1-alph, al, scale=bet)[0][0]
 
-	return (testStat, thresh)
+	return testStat, thresh
